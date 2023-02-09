@@ -21,12 +21,13 @@ public class EmployeeRepo {
             employees = new ArrayList<Employee>();
         }
 
-        DateFormat df = new SimpleDateFormat("dd-mm-yyyy");
-        Date dt = df.parse("29-12-1995");
+        DateFormat df = new SimpleDateFormat("yyyy-mm-dd");
+        Date dt = df.parse("1995-12-29");
         Employee emp = new Employee("Mahesan", "Elangovan", "blahblah@gmail.com", "91234567", 5500, dt, "10 Ghim Moh",
                 510010);
+        employees.add(emp);
 
-        dt = df.parse("14-07-1995");
+        dt = df.parse("1995-07-14");
         emp = new Employee("Jack", "Daniel", "jackdaniel@gmail.com", "80994455", 123456, dt, "99 bedok south ave",
                 459099);
 
@@ -44,15 +45,43 @@ public class EmployeeRepo {
     }
 
     public Boolean delete(Employee employee) {
-        //employees.stream().filter(emp -> emp.getEmail().equalsIgnoreCase(employee.getEmail())).findFirst().get();
+        // employees.stream().filter(emp ->
+        // emp.getEmail().equalsIgnoreCase(employee.getEmail())).findFirst().get();
 
         Boolean result = false;
         int employeeIndex = employees.indexOf(employee);
 
-        if(employeeIndex >=0) {
+        if (employeeIndex >= 0) {
             employees.remove(employeeIndex);
             result = true;
         }
         return result;
+    }
+
+    public Employee findbyEmailId(String email){
+        Employee emp = employees.stream().filter(e->e.getEmail().equals(email)).findFirst().get();
+        return emp;
+    }
+
+    public Boolean updateEmployee(Employee em) {
+        Employee emp = employees.stream().filter(e -> e.getEmail().equals(em.getEmail())).findFirst().get();
+
+        int employeeIndex = employees.indexOf(emp);
+
+        if (employeeIndex >= 0) {
+            // employees.remove(employeeIndex);
+
+            employees.get(employeeIndex).setAddress(em.getAddress());
+            employees.get(employeeIndex).setBirthDay(em.getBirthDay());
+            employees.get(employeeIndex).setFirstName(em.getFirstName());
+            employees.get(employeeIndex).setLastName(em.getLastName());
+            employees.get(employeeIndex).setSalary(em.getSalary());
+            employees.get(employeeIndex).setPhoneNo(em.getPhoneNo());
+            employees.get(employeeIndex).setPostalCode(em.getPostalCode());
+        }
+
+        // employees.add(em);
+
+        return true;
     }
 }

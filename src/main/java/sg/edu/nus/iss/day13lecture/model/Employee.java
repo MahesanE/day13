@@ -26,11 +26,11 @@ public class Employee {
 
     @Email(message = "Invalid email format")
     @Size(max=1000)
-    @Pattern(regexp = ".+@.\\..+", message = "Wrong email format")
+    @Pattern(regexp = ".+@.+\\..+", message = "Wrong email format")
     @NotEmpty(message = "Email is a mandatory field")
     private String email;
 
-    @Pattern(regexp = "(\\8|9)[0-9]{7}", message = "Invalid phone number format")
+    @Pattern(regexp="[89][0-9]{7}$", message = "Invalid phone number format")
     private String phoneNo;
 
     @Min(value = 1000, message = "Min salary has to be at least 1000 come on bro")
@@ -38,7 +38,7 @@ public class Employee {
     private Integer salary;
 
     
-    @DateTimeFormat(pattern = "dd-mm-yyyy")
+    @DateTimeFormat(pattern = "yyyy-mm-dd")
     @PastOrPresent(message = "Birth date cannot be greater than today")
     private Date birthDay;
 
